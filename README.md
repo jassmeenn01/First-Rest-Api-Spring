@@ -77,7 +77,7 @@ src/main/java/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git clone https://github.com/jassmeenn01/First-Rest-Api-Spring
    ```
 
 2. **Open the project** in IntelliJ IDEA via `File → Open`
@@ -313,6 +313,6 @@ The table shows 5 products — note that product with id=2 has name `twoAfterUpd
 
 ## Author
 
-**[Your Name]**  
-Akademia Finansów i Biznesu Vistula  
-Course: Spring Framework Applications
+**[Jasmeen Kaur]**  
+Vistula University  
+
