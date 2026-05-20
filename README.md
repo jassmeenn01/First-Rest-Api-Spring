@@ -313,6 +313,7 @@ The table shows 5 products — note that product with id=2 has name `twoAfterUpd
 
 ## Author
 
-**[Your Name]**  
-Akademia Finansów i Biznesu Vistula  
-Course: Spring Framework Applications
+**Jasmeen Kaur**  
+Vistula University
+
+
