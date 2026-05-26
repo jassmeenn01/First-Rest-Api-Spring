@@ -40,5 +40,10 @@ public class ProductController {
         productService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
+    @GetMapping
+    @io.swagger.v3.oas.annotations.Operation(summary = "Find all products")
+    public ResponseEntity<java.util.List<ProductResponse>> findAll() {
+        java.util.List<ProductResponse> productResponses = productService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(productResponses);
+    }
 }

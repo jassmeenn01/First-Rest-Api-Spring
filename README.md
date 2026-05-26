@@ -11,11 +11,11 @@ This project was created as part of the Spring Framework course at Akademia Fina
 - [Project Structure](#project-structure)
 - [How to Run](#how-to-run)
 - [API Endpoints](#api-endpoints)
-  - [POST – Create a Product](#1-post--create-a-product)
-  - [GET – Find Product by ID](#2-get--find-product-by-id)
-  - [GET – Find All Products](#3-get--find-all-products)
-  - [PUT – Update a Product](#4-put--update-a-product)
-  - [DELETE – Delete a Product](#5-delete--delete-a-product)
+    - [POST – Create a Product](#1-post--create-a-product)
+    - [GET – Find Product by ID](#2-get--find-product-by-id)
+    - [GET – Find All Products](#3-get--find-all-products)
+    - [PUT – Update a Product](#4-put--update-a-product)
+    - [DELETE – Delete a Product](#5-delete--delete-a-product)
 - [Exception Handling](#exception-handling)
 - [Swagger UI](#swagger-ui)
 - [H2 Database Console](#h2-database-console)
@@ -101,9 +101,9 @@ Base URL: `http://localhost:8080/api/v1/products`
 
 All requests and responses use **JSON format**.
 
-All available endpoints are visible in Swagger UI:
+All available endpoints visible in Swagger UI:
 
-![Swagger UI Overview](images/swagger-overview.png)
+![Swagger UI Overview](images/swagger-overview-new.png)
 
 ---
 
@@ -116,7 +116,7 @@ All available endpoints are visible in Swagger UI:
 **Request body:**
 ```json
 {
-  "name": "First product"
+  "name": "one"
 }
 ```
 
@@ -124,11 +124,13 @@ All available endpoints are visible in Swagger UI:
 ```json
 {
   "id": 1,
-  "name": "First product"
+  "name": "one"
 }
 ```
 
-> 📸 *Screenshot: test this endpoint using the POST section in Swagger UI (`/api/v1/products`) by clicking "Try it out", entering the request body, and clicking Execute.*
+After creating 4 products (one, two, three, four), the H2 database shows:
+
+![H2 After POST - 4 products](images/h2-before-update.png)
 
 ---
 
@@ -172,14 +174,17 @@ GET http://localhost:8080/api/v1/products
 ```json
 [
   { "id": 1, "name": "one" },
-  { "id": 2, "name": "twoAfterUpdate" },
+  { "id": 2, "name": "two" },
   { "id": 3, "name": "three" },
-  { "id": 4, "name": "four" },
-  { "id": 5, "name": "five" }
+  { "id": 4, "name": "four" }
 ]
 ```
 
 > If no products exist, an empty list `[]` is returned — no exception is thrown.
+
+**GET all products tested in Swagger UI (200 OK):**
+
+![GET All Products - 200 OK](images/get-all-200.png)
 
 ---
 
@@ -191,28 +196,32 @@ GET http://localhost:8080/api/v1/products
 
 **Example request:**
 ```
-PUT http://localhost:8080/api/v1/products/1
+PUT http://localhost:8080/api/v1/products/2
 ```
 
 **Request body:**
 ```json
 {
-  "name": "one",
-  "id": 1
+  "name": "two after update",
+  "id": 2
 }
 ```
 
 **Response body:**
 ```json
 {
-  "id": 1,
-  "name": "one"
+  "id": 2,
+  "name": "two after update"
 }
 ```
 
 **PUT request tested in Swagger UI (200 OK):**
 
 ![PUT Update - 200 OK](images/put-update-200.png)
+
+**H2 database after the update — product id=2 name changed to "two after update":**
+
+![H2 After PUT Update](images/h2-after-update.png)
 
 ---
 
@@ -224,14 +233,18 @@ PUT http://localhost:8080/api/v1/products/1
 
 **Example request:**
 ```
-DELETE http://localhost:8080/api/v1/products/1
+DELETE http://localhost:8080/api/v1/products/2
 ```
 
 **Response:** No body is returned. Status `204 No Content` confirms the deletion.
 
 **DELETE request tested in Swagger UI (204 No Content):**
 
-![DELETE - 204 No Content](images/delete-204.png)
+![DELETE - 204 No Content](images/delete-204-new.png)
+
+**H2 database after DELETE — product id=2 is gone, only 3 rows remain:**
+
+![H2 After DELETE](images/h2-after-delete.png)
 
 ---
 
@@ -251,7 +264,7 @@ GET http://localhost:8080/api/v1/products/7
 }
 ```
 
-This is handled by the `ProductExceptionAdvisor` class annotated with `@ControllerAdvice`, which catches `ProductNotFoundException` and returns the proper HTTP status and error message.
+This is handled by the `ProductExceptionAdvisor` class annotated with `@ControllerAdvice`, which catches `ProductNotFoundException` and returns the correct HTTP status and error message.
 
 **404 error response shown in Swagger UI:**
 
@@ -267,11 +280,11 @@ Swagger UI provides an interactive interface to view and test all API endpoints 
 
 All available endpoints are listed under the `product-controller` section:
 
-![Swagger UI Overview](images/swagger-overview.png)
+![Swagger UI Overview](images/swagger-overview-new.png)
 
 Features:
-- All 5 endpoints visible (GET, PUT, DELETE, POST)
-- Request/response schemas (`ProductRequest`, `ProductResponse`)
+- All 5 endpoints visible (GET by id, PUT, DELETE, GET all, POST)
+- Request/response schemas (`ProductRequest`, `UpdateProductRequest`, `ProductResponse`, `ErrorMessageResponse`)
 - Ability to execute requests directly from the browser using "Try it out"
 
 **Raw API docs (JSON format):**  
@@ -303,16 +316,23 @@ After logging in, you can run SQL queries directly against the database:
 SELECT * FROM PRODUCTS;
 ```
 
-**H2 Console showing product data after testing all endpoints:**
+**H2 Console after creating 4 products:**
 
-![H2 Console Data](images/h2-data.png)
+![H2 After POST](images/h2-before-update.png)
 
-The table shows 5 products — note that product with id=2 has name `twoAfterUpdate`, which confirms the PUT (update) endpoint worked correctly.
+**H2 Console after updating product id=2:**
+
+![H2 After PUT](images/h2-after-update.png)
+
+**H2 Console after deleting product id=2:**
+
+![H2 After DELETE](images/h2-after-delete.png)
 
 ---
 
 ## Author
 
-**[Jasmeen Kaur]**  
+**Jasmeen Kaur**  
 Vistula University  
+
 
